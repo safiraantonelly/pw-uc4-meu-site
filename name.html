@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mural de recados</title>
+</head>
+<body>
+  <h1>Mural de recados</h1>
+  <ul id="lista"><li>Carregando...</li></ul>
+  <script>
+    const API = "https://Safiralima.pythonanywhere.com/api/recados";
+    fetch(API)
+      .then(resposta => resposta.json())
+      .then(recados => {
+        const lista = document.getElementById("lista");
+        lista.innerHTML = "";
+        recados.forEach(recado => {
+          const item = document.createElement("li");
+          item.textContent = recado.texto;
+          lista.appendChild(item);
+        });
+      })
+      .catch(erro => {
+        document.getElementById("lista").textContent = "Erro ao carregar: " + erro;
+      });
+    </script>
+</body>
+</html>
